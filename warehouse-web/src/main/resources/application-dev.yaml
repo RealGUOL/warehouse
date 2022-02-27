@@ -1,0 +1,6 @@
+logging:
+  level:
+    com:
+      realguo:
+        warehouse:
+          dao: debug
