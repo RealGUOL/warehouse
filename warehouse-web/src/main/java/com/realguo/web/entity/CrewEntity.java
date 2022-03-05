@@ -58,7 +58,7 @@ public class CrewEntity<T> implements Serializable {
      * 联系人
      */
     @ApiModelProperty(value = "联系人")
-    private String contract;
+    private String contact;
 
     /**
      * 手机号码
