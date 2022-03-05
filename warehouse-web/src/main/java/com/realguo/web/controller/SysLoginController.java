@@ -1,12 +1,15 @@
 package com.realguo.web.controller;
 
+import com.google.common.collect.Lists;
 import com.realguo.common.utils.R;
 import com.realguo.web.config.shiro.ShiroUtils;
+import com.realguo.web.form.LoginForm;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,13 +20,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 登录相关
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年11月10日 下午1:15:31
  */
 @Controller
 public class SysLoginController {
@@ -50,16 +52,11 @@ public class SysLoginController {
      * 登录
      */
     @ResponseBody
-    @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-    public R login(String username, String password, String captcha) {
-        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-        if (!captcha.equalsIgnoreCase(kaptcha)) {
-            return R.error("验证码不正确");
-        }
-
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    public R login(@RequestBody LoginForm form) {
         try {
             Subject subject = ShiroUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(form.getUsername(), form.getPassword());
             subject.login(token);
         } catch (UnknownAccountException e) {
             return R.error(e.getMessage());
@@ -70,14 +67,31 @@ public class SysLoginController {
         } catch (AuthenticationException e) {
             return R.error("账户验证失败");
         }
-
         return R.ok();
+    }
+
+
+    /**
+     * 获取信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/user/info", method = RequestMethod.GET)
+    public R info() {
+        Subject subject = ShiroUtils.getSubject();
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<String> list =  Lists.newArrayList();
+        list.add("admin");
+        map.put("roles", list);
+        map.put("introduction", "I am a super administrator");
+        map.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        map.put("name", "Super Admin");
+        return R.ok().put("data", map);
     }
 
     /**
      * 退出
      */
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "user/logout", method = RequestMethod.GET)
     public String logout() {
         ShiroUtils.logout();
         return "redirect:login.html";
