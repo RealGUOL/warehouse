@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.realguo.web.vo.DepotPropVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -69,13 +70,6 @@ public class PropEntity<T> implements Serializable {
     private BigDecimal price;
 
     /**
-     * 库存
-     */
-    @NotBlank(message = "库存不能为空")
-    @ApiModelProperty(value = "库存")
-    private Integer stock;
-
-    /**
      * 图片地址
      */
     @ApiModelProperty(value = "图片地址")
@@ -86,12 +80,6 @@ public class PropEntity<T> implements Serializable {
      */
     @ApiModelProperty(value = "备注")
     private String remark;
-
-    /**
-     * 仓库名称
-     */
-    @TableField(exist=false)
-    private String deptName;
 
     /**
      * 创建时间
@@ -109,4 +97,10 @@ public class PropEntity<T> implements Serializable {
     @TableField(fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "修改时间", hidden = true)
     private Date updateTime;
+
+    /**
+     * 道具所在仓库信息
+     */
+    @TableField(exist=false)
+    private List<DepotPropVO> depotProp;
 }

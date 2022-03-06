@@ -43,7 +43,7 @@ public class DepotEntity<T> implements Serializable {
      * 仓库ID
      */
     @TableId
-    @ApiModelProperty(value = "道具ID", hidden = true)
+    @ApiModelProperty(value = "仓库Id", hidden = true)
     private Long depotId;
 
 

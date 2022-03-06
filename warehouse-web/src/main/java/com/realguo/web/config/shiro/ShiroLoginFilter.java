@@ -3,6 +3,7 @@ package com.realguo.web.config.shiro;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
 import org.apache.shiro.web.filter.authc.UserFilter;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -16,9 +17,10 @@ public class ShiroLoginFilter extends UserFilter {
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
-        HashMap<String, String> map = Maps.newHashMap();
-        map.put("error", "登录已失效或未登录，请重新登录！");
-        response.getWriter().print(map);
+        HashMap<String, Object> map = Maps.newHashMap();
+        map.put("code", 50014);
+        map.put("msg", "登录已失效或未登录，请重新登录！");
+        response.getWriter().print(new JSONObject(map));
     }
 
 }

@@ -14,7 +14,7 @@ public class DepotDaoTest {
 
     @Test
     public void TestInsert() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             DepotEntity depot = new DepotEntity();
             depot.setDepotName("仓库" + i);
             depot.setDescription("仓库" + i);

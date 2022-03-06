@@ -1,12 +1,18 @@
 package com.realguo.web.dao;
 
+import com.google.common.collect.Maps;
+import com.realguo.web.entity.DepotPropEntity;
 import com.realguo.web.entity.PropEntity;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @SpringBootTest
 public class PropDaoTest {
@@ -20,12 +26,20 @@ public class PropDaoTest {
             prop.setPropCode("AAAAAA" + i);
             prop.setPropName("小刀" + i);
             prop.setPrice(new BigDecimal("1.1"));
-            prop.setStock(100);
             prop.setImg("http://wwww.baidu.com/" + i);
             prop.setRemark("测试" + i);
             prop.setCreateTime(new Date());
             propDao.insert(prop);
         }
+    }
 
+    @Test
+    public void TestSelectByMap() {
+        /*通过用户名查询数据库*/
+        HashMap<String, Object> map = Maps.newHashMap();
+        ArrayList<String> list = Lists.newArrayList("1500343481731326000", "1500343481731326000");
+        map.put("prop_id", list);
+        List<PropEntity> propEntities = propDao.selectByMap(map);
+        System.out.println(propEntities);
     }
 }

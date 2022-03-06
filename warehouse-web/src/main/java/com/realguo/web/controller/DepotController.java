@@ -1,6 +1,5 @@
 package com.realguo.web.controller;
 
-
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.R;
 import com.realguo.web.service.CrewService;
@@ -18,14 +17,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/depot")
 public class DepotController extends AbstractController {
-	@Autowired
-	private DepotService depotService;
+    @Autowired
+    private DepotService depotService;
 
 
-	@RequestMapping("/list")
-	public R list(@RequestParam Map<String, Object> params){
-		PageUtils page = depotService.queryPage(params);
+    @RequestMapping("/list")
+    public R list(@RequestParam Map<String, Object> params) {
+        PageUtils page = depotService.queryPage(params);
 
-		return R.ok().put("data", page);
-	}
+        return R.ok().put("data", page);
+    }
 }
