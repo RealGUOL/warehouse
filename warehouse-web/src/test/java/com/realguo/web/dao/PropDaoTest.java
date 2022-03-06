@@ -1,6 +1,5 @@
 package com.realguo.web.dao;
 
-import com.realguo.web.entity.CrewEntity;
 import com.realguo.web.entity.PropEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

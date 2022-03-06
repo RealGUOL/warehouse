@@ -88,6 +88,12 @@ public class PropEntity<T> implements Serializable {
     private String remark;
 
     /**
+     * 仓库名称
+     */
+    @TableField(exist=false)
+    private String deptName;
+
+    /**
      * 创建时间
      */
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
