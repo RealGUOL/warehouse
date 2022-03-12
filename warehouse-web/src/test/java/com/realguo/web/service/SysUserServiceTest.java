@@ -13,7 +13,7 @@ public class SysUserServiceTest {
     @Test
     public void TestInsert() {
         SysUserEntity user = new SysUserEntity();
-        user.setUsername("admin");
+        user.setUsername("root");
         user.setPassword("111111");
         user.setPhone("17621697883");
         user.setEmail("1101036063");

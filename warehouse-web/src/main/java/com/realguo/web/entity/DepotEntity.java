@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class DepotEntity<T> implements Serializable {
      * 仓库ID
      */
     @TableId
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "仓库Id", hidden = true)
     private Long depotId;
 
@@ -51,6 +54,7 @@ public class DepotEntity<T> implements Serializable {
      * 仓库名称
      */
     @ApiModelProperty(value = "仓库名称")
+    @NotBlank(message = "仓库名称不能为空")
     private String depotName;
 
 

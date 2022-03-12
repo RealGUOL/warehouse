@@ -24,7 +24,7 @@ public class DepotServiceImpl extends ServiceImpl<DepotDao, DepotEntity> impleme
                 new Query<DepotEntity>(params).getPage(),
                 new EntityWrapper<DepotEntity>()
         );
-
+        System.out.println(page.getRecords().get(0).getDepotId());
         return new PageUtils(page);
     }
 }

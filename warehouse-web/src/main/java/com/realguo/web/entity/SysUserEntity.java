@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class SysUserEntity<T> implements Serializable {
      * 用户ID
      */
     @TableId
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "用户ID", hidden = true)
     private Long userId;
 
@@ -50,6 +53,7 @@ public class SysUserEntity<T> implements Serializable {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空")
     @ApiModelProperty(value = "用户名")
     private String username;
 
@@ -92,6 +96,7 @@ public class SysUserEntity<T> implements Serializable {
      */
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     @ApiModelProperty(value = "注册时间")
     private Date createTime;
 

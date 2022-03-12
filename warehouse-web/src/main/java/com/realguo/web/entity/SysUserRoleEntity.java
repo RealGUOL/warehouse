@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,16 +23,19 @@ import java.util.Date;
 public class SysUserRoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@TableId
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long id;
 
 	/**
 	 * 用户ID
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long userId;
 
 	/**
 	 * 角色ID
 	 */
+	@JsonSerialize(using = ToStringSerializer.class)
 	private Long roleId;
 
 	/**
@@ -38,6 +43,7 @@ public class SysUserRoleEntity implements Serializable {
 	 */
 	@JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat
+	@TableField(fill = FieldFill.INSERT)
 	@ApiModelProperty(value = "创建时间")
 	private Date createTime;
 

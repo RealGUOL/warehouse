@@ -2,5 +2,5 @@ logging:
   level:
     com:
       realguo:
-        warehouse:
+        web:
           dao: debug

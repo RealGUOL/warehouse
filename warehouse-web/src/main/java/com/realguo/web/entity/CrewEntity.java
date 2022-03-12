@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class CrewEntity<T> implements Serializable {
      * 剧组ID
      */
     @TableId
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "剧组ID", hidden = true)
     private Long crewId;
 

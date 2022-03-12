@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.realguo.web.vo.DepotPropVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -45,6 +47,7 @@ public class PropEntity<T> implements Serializable {
      * 道具ID
      */
     @TableId
+    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "道具ID", hidden = true)
     private Long propId;
 
