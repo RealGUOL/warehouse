@@ -17,6 +17,4 @@ import java.util.Map;
  */
 public interface CrewService extends IService<CrewEntity> {
     PageUtils queryPage(Map<String, Object> params);
-
-    List<CrewVO> selectListVO(Wrapper<CrewEntity> wrapper);
 }

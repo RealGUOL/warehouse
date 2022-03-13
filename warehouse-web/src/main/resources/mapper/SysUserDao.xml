@@ -3,16 +3,16 @@
 
 <mapper namespace="com.realguo.web.dao.SysUserDao">
 
-<!--    <resultMap type="com.realguo.web.entity.SysUserEntity" id="userMap">-->
-<!--        <result property="userId" column="user_id"/>-->
-<!--        <result property="username" column="username"/>-->
-<!--        <result property="password" column="password"/>-->
-<!--        <result property="salt" column="salt"/>-->
-<!--        <result property="email" column="email"/>-->
-<!--        <result property="phone" column="phone"/>-->
-<!--        <result property="status" column="status"/>-->
-<!--        <result property="createTime" column="create_time"/>-->
-<!--        <result property="updateTime" column="update_time"/>-->
-<!--    </resultMap>-->
+    <resultMap type="com.realguo.web.entity.SysUserEntity" id="userMap">
+        <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
 
 </mapper>

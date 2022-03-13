@@ -2,6 +2,7 @@ package com.realguo.web.controller;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.google.common.collect.Maps;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.R;
 import com.realguo.common.validator.ValidatorUtils;
@@ -24,46 +25,47 @@ import java.util.Map;
 @RestController
 @RequestMapping("/crew")
 public class CrewController extends AbstractController {
-	@Autowired
-	private CrewService crewService;
+    @Autowired
+    private CrewService crewService;
 
 
-	@RequestMapping("/list")
-	public R list(@RequestParam Map<String, Object> params){
-		PageUtils page = crewService.queryPage(params);
+    @RequestMapping("/list")
+    public R list(@RequestParam Map<String, Object> params) {
+        PageUtils page = crewService.queryPage(params);
 
-		return R.ok().put("data", page);
-	}
+        return R.ok().put("data", page);
+    }
 
-	@RequestMapping("/search")
-	public R search(@RequestBody Map<String, String> params){
-		System.out.println(params);
-		List<CrewVO> res = crewService.selectListVO(new EntityWrapper<CrewEntity>().like("crew_name", params.get("keyword")));
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("item", res);
-		return R.ok().put("data", map);
-	}
+    @RequestMapping("/search")
+    public R search(@RequestBody Map<String, String> params) {
+        List<Map<String, Object>> res = crewService.selectMaps(new EntityWrapper<CrewEntity>()
+                .setSqlSelect("crew_id, crew_name")
+                .like("crew_name", params.get("keyword")));
+        HashMap<String, Object> map = Maps.newHashMap();
+        map.put("items", res);
+        return R.ok().put("data", map);
+    }
 
-	@RequestMapping("/update")
-	public R update(@RequestBody CrewEntity crew) {
-		ValidatorUtils.validateEntity(crew);
-		crewService.updateById(crew);
-		return R.ok();
-	}
+    @RequestMapping("/update")
+    public R update(@RequestBody CrewEntity crew) {
+        ValidatorUtils.validateEntity(crew);
+        crewService.updateById(crew);
+        return R.ok();
+    }
 
-	@RequestMapping("/delete")
-	public R delete(@RequestBody CrewEntity crew) {
-		ValidatorUtils.validateEntity(crew);
-		crewService.deleteById(crew.getCrewId());
-		return R.ok();
-	}
+    @RequestMapping("/delete")
+    public R delete(@RequestBody CrewEntity crew) {
+        ValidatorUtils.validateEntity(crew);
+        crewService.deleteById(crew.getCrewId());
+        return R.ok();
+    }
 
-	@RequestMapping("/create")
-	public R create(@RequestBody CrewEntity crew) {
-		ValidatorUtils.validateEntity(crew);
-		crewService.insert(crew);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("item", crew);
-		return R.ok().put("data", map);
-	}
+    @RequestMapping("/create")
+    public R create(@RequestBody CrewEntity crew) {
+        ValidatorUtils.validateEntity(crew);
+        crewService.insert(crew);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("item", crew);
+        return R.ok().put("data", map);
+    }
 }

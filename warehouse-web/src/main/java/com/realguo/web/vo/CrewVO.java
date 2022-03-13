@@ -1,6 +1,7 @@
 package com.realguo.web.vo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -22,12 +23,14 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("crew")
 public class CrewVO  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 剧组ID
      */
+    @TableId
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "剧组ID", hidden = true)
     private Long crewId;

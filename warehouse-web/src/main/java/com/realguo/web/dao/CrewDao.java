@@ -13,5 +13,4 @@ import java.util.List;
  * 剧组管理
  */
 public interface CrewDao extends BaseMapper<CrewEntity> {
-    List<CrewVO> selectListVO(@Param("ew") Wrapper<CrewEntity> wrapper);
 }

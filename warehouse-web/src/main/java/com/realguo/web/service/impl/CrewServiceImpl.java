@@ -27,9 +27,4 @@ public class CrewServiceImpl extends ServiceImpl<CrewDao, CrewEntity> implements
 
         return new PageUtils(page);
     }
-
-    @Override
-    public List<CrewVO> selectListVO(Wrapper<CrewEntity> wrapper) {
-        return baseMapper.selectListVO(wrapper);
-    }
 }
