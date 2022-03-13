@@ -60,13 +60,15 @@ public class CrewEntity<T> implements Serializable {
     /**
      * 联系人
      */
+    @NotBlank(message = "联系人不能为空")
     @ApiModelProperty(value = "联系人")
     private String contact;
 
     /**
      * 手机号码
      */
-    @ApiModelProperty(value = "联系人")
+    @NotBlank(message = "手机号码不能为空")
+    @ApiModelProperty(value = "手机号码")
     private String phone;
 
     /**
@@ -80,6 +82,7 @@ public class CrewEntity<T> implements Serializable {
      */
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 

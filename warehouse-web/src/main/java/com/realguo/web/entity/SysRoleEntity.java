@@ -67,6 +67,7 @@ public class SysRoleEntity<T> implements Serializable {
      */
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 

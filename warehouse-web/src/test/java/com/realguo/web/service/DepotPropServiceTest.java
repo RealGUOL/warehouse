@@ -25,7 +25,7 @@ public class DepotPropServiceTest {
 
     @Test
     public void TestSave() {
-        List<Long> depotIds = Lists.newArrayList(1500407732613373954L, 1500407732739203073L, 1500407732751785986L, 1500407732760174593L, 1500407732776951810L);
+        List<Long> depotIds = Lists.newArrayList(1502869573633515521L, 1502869574359130113L, 1502869574359130113L, 1502869574384295938L, 1502869574396878850L);
         for (int i = 0; i < 100; i++) {
             PropEntity prop = new PropEntity();
             prop.setPropCode("AAAAAA" + i);

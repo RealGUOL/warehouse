@@ -36,7 +36,7 @@ mybatis-plus:
     logic-delete-value: -1
     logic-not-delete-value: 0
     #自定义填充策略接口实现
-#    meta-object-handler: com.realgo.web.config.mybatisplus.MyMetaObjectHandler
+    #meta-object-handler: com.realgo.web.config.mybatisplus.MyMetaObjectHandler
     #自定义SQL注入器
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
   configuration:
