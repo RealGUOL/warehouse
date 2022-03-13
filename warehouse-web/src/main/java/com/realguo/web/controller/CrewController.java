@@ -38,9 +38,10 @@ public class CrewController extends AbstractController {
 
     @RequestMapping("/search")
     public R search(@RequestBody Map<String, String> params) {
-        List<Map<String, Object>> res = crewService.selectMaps(new EntityWrapper<CrewEntity>()
+        List<CrewVO> res = crewService.selectListVO(new EntityWrapper<CrewEntity>()
                 .setSqlSelect("crew_id, crew_name")
                 .like("crew_name", params.get("keyword")));
+
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("items", res);
         return R.ok().put("data", map);

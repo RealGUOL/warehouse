@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("crewService")
 public class CrewServiceImpl extends ServiceImpl<CrewDao, CrewEntity> implements CrewService {
@@ -27,4 +28,12 @@ public class CrewServiceImpl extends ServiceImpl<CrewDao, CrewEntity> implements
 
         return new PageUtils(page);
     }
+
+    @Override
+    public List<CrewVO> selectListVO(Wrapper<CrewEntity> wrapper) {
+        List<Map<String, Object>> map = baseMapper.selectMaps(wrapper);
+        List<CrewVO> res = map.stream().map(e -> new CrewVO((long) e.get("crew_id"), (String) e.get("crew_name"))).collect(Collectors.toList());
+        return res;
+    }
+
 }
