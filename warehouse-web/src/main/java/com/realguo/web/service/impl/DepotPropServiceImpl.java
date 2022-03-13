@@ -48,7 +48,6 @@ public class DepotPropServiceImpl extends ServiceImpl<DepotPropDao, DepotPropEnt
         // 保存道具和仓库关系
         for (DepotPropEntity depotPropEntity : list) {
             depotPropEntity.setPropId(propId);
-            depotPropEntity.setCreateTime(new Date());
         }
         this.insertBatch(list);
     }

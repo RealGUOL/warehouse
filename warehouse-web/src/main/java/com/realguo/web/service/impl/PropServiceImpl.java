@@ -43,7 +43,6 @@ public class PropServiceImpl extends ServiceImpl<PropDao, PropEntity> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(PropEntity propEntity) {
-        propEntity.setCreateTime(new Date());
         this.insert(propEntity);
 
         //保存道具和所在仓库库存

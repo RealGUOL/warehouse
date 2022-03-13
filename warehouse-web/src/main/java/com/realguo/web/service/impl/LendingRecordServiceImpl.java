@@ -5,19 +5,19 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
+import com.realguo.common.exception.RRException;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.LendingRecordDao;
 import com.realguo.web.entity.DepotEntity;
 import com.realguo.web.entity.DepotPropEntity;
 import com.realguo.web.entity.LendingRecordEntity;
-import com.realguo.web.service.CrewService;
-import com.realguo.web.service.DepotService;
-import com.realguo.web.service.LendingRecordService;
-import com.realguo.web.service.PropService;
+import com.realguo.web.service.*;
 import com.realguo.web.vo.DepotPropVO;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -40,6 +40,9 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
     @Autowired
     private DepotService depotService;
 
+    @Autowired
+    private DepotPropService depotPropService;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<LendingRecordEntity> page = this.selectPage(
@@ -55,5 +58,27 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
         }
 
         return new PageUtils(page);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void save(LendingRecordEntity lendingRecord) {
+        this.insert(lendingRecord);
+        // 查询库存
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("depot_id", lendingRecord.getDepotId());
+        map.put("prop_id", lendingRecord.getPropId());
+        List<DepotPropEntity> depotPropEntities = depotPropService.selectByMap(map);
+        if (CollectionUtils.isEmpty(depotPropEntities)) {
+            throw new RRException("未找到相关库存");
+        }
+        // 检查库存
+        DepotPropEntity depotProp = depotPropEntities.get(0);
+        if (depotProp.getStock() < lendingRecord.getBorrowNum()) {
+            throw new RRException("库存不足");
+        }
+        // 扣库存
+        depotProp.setStock(depotProp.getStock() - lendingRecord.getBorrowNum());
+        depotPropService.updateById(depotProp);
     }
 }
