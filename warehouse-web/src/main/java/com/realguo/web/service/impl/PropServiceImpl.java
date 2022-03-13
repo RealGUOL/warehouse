@@ -22,10 +22,7 @@ import java.util.Map;
 public class PropServiceImpl extends ServiceImpl<PropDao, PropEntity> implements PropService {
 
     @Autowired
-    DepotPropService depotPropService;
-
-    @Autowired
-    DepotService depotService;
+    private DepotPropService depotPropService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {

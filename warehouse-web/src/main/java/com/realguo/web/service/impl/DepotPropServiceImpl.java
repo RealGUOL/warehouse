@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class DepotPropServiceImpl extends ServiceImpl<DepotPropDao, DepotPropEntity> implements DepotPropService {
 
     @Autowired
-    DepotService depotService;
+    private DepotService depotService;
 
     @Override
     public void saveOrUpdate(Long propId, List<DepotPropVO> depotProp) {
