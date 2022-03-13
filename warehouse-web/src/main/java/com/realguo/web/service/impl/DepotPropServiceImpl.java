@@ -2,23 +2,16 @@
 package com.realguo.web.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.realguo.common.utils.MapUtils;
 import com.realguo.web.dao.DepotPropDao;
-import com.realguo.web.dao.SysUserRoleDao;
 import com.realguo.web.entity.DepotEntity;
 import com.realguo.web.entity.DepotPropEntity;
-import com.realguo.web.entity.SysUserRoleEntity;
 import com.realguo.web.service.DepotPropService;
 import com.realguo.web.service.DepotService;
-import com.realguo.web.service.SysUserRoleService;
-import com.realguo.web.vo.DepotPropVO;
+import com.realguo.web.view.DepotPropView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,7 +27,7 @@ public class DepotPropServiceImpl extends ServiceImpl<DepotPropDao, DepotPropEnt
     private DepotService depotService;
 
     @Override
-    public void saveOrUpdate(Long propId, List<DepotPropVO> depotProp) {
+    public void saveOrUpdate(Long propId, List<DepotPropView> depotProp) {
         Map<String, Object> map = Maps.newHashMap();
         map.put("prop_id", propId);
         // 先删除道具和仓库的关系
@@ -53,12 +46,12 @@ public class DepotPropServiceImpl extends ServiceImpl<DepotPropDao, DepotPropEnt
     }
 
     @Override
-    public List<DepotPropVO> getDepotPropVO(Long propId) {
+    public List<DepotPropView> getDepotPropVO(Long propId) {
         Map<String, Object> map = Maps.newHashMap();
         map.put("prop_id", propId);
         List<DepotPropEntity> records = baseMapper.selectByMap(map);
-        List<DepotPropVO> res = records.stream().map(DepotPropVO::new).collect(Collectors.toList());
-        for (DepotPropVO re : res) {
+        List<DepotPropView> res = records.stream().map(DepotPropView::new).collect(Collectors.toList());
+        for (DepotPropView re : res) {
             DepotEntity depotEntity = depotService.selectById(re.getDepotId());
             re.setDepotName(depotEntity.getDepotName());
         }

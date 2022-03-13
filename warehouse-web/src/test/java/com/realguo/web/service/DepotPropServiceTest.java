@@ -2,8 +2,7 @@ package com.realguo.web.service;
 
 import com.realguo.web.entity.LendingRecordEntity;
 import com.realguo.web.entity.PropEntity;
-import com.realguo.web.entity.SysUserEntity;
-import com.realguo.web.vo.DepotPropVO;
+import com.realguo.web.view.DepotPropView;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +33,13 @@ public class DepotPropServiceTest {
             prop.setImg("http://wwww.baidu.com/" + i);
             prop.setRemark("测试" + i);
             prop.setCreateTime(new Date());
-            List<DepotPropVO> list = Lists.newArrayList();
+            List<DepotPropView> list = Lists.newArrayList();
             for (Long depotId : depotIds) {
-                DepotPropVO depotPropVO = new DepotPropVO();
-                depotPropVO.setPropId(prop.getPropId());
-                depotPropVO.setDepotId(depotId);
-                depotPropVO.setStock(20);
-                list.add(depotPropVO);
+                DepotPropView depotPropView = new DepotPropView();
+                depotPropView.setPropId(prop.getPropId());
+                depotPropView.setDepotId(depotId);
+                depotPropView.setStock(20);
+                list.add(depotPropView);
             }
             prop.setDepotProp(list);
             propService.save(prop);

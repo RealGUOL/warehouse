@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.realguo.web.vo.DepotPropVO;
+import com.realguo.web.view.DepotPropView;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +27,7 @@ import java.util.Date;
 public class DepotPropEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public DepotPropEntity(DepotPropVO t) {
+    public DepotPropEntity(DepotPropView t) {
         try {
             BeanUtils.copyProperties(this, t);
         } catch (IllegalAccessException | InvocationTargetException e) {

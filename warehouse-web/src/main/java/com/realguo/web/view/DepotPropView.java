@@ -1,7 +1,7 @@
-package com.realguo.web.vo;
+package com.realguo.web.view;
 
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.realguo.web.entity.LendingRecordEntity;
+import com.realguo.web.entity.DepotPropEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,27 +11,28 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-@TableName("lending_record")
-@ApiModel("出借记录")
+/**
+ *
+ * 后端返回视图实体辅助类
+ * （通常后端关联的表或者自定义的字段需要返回使用）
+ */
+
+@TableName("depot_prop")
+@ApiModel("仓库道具")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LendingRecordVO extends LendingRecordEntity implements Serializable {
+public class DepotPropView extends DepotPropEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public LendingRecordVO(LendingRecordEntity lendingRecordEntity) {
+    public DepotPropView(DepotPropEntity depotPropEntity) {
         try {
-            BeanUtils.copyProperties(this, lendingRecordEntity);
+            BeanUtils.copyProperties(this, depotPropEntity);
         } catch (IllegalAccessException | InvocationTargetException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-
-    private String crewName;
-
-    private String propName;
-
     private String depotName;
 }

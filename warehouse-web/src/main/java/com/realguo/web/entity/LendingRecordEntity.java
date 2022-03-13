@@ -106,7 +106,15 @@ public class LendingRecordEntity<T> implements Serializable {
     private String remark;
 
     /**
-     * 备注
+     * 归还时间
+     */
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat
+    @ApiModelProperty(value = "归还时间")
+    private Date returnTime;
+
+    /**
+     * 操作人
      */
     @ApiModelProperty(value = "操作人")
     private String operator;

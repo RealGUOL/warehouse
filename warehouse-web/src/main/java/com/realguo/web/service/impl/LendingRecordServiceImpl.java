@@ -9,20 +9,16 @@ import com.realguo.common.exception.RRException;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.LendingRecordDao;
-import com.realguo.web.entity.DepotEntity;
 import com.realguo.web.entity.DepotPropEntity;
 import com.realguo.web.entity.LendingRecordEntity;
 import com.realguo.web.service.*;
-import com.realguo.web.vo.DepotPropVO;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 /**

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.realguo.web.vo.DepotPropVO;
+import com.realguo.web.view.DepotPropView;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -106,5 +106,5 @@ public class PropEntity<T> implements Serializable {
      * 道具所在仓库信息
      */
     @TableField(exist=false)
-    private List<DepotPropVO> depotProp;
+    private List<DepotPropView> depotProp;
 }

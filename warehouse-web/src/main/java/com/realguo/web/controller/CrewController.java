@@ -1,11 +1,13 @@
 package com.realguo.web.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.R;
 import com.realguo.common.validator.ValidatorUtils;
 import com.realguo.web.entity.CrewEntity;
 import com.realguo.web.service.CrewService;
+import com.realguo.web.vo.CrewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +33,15 @@ public class CrewController extends AbstractController {
 		PageUtils page = crewService.queryPage(params);
 
 		return R.ok().put("data", page);
+	}
+
+	@RequestMapping("/search")
+	public R search(@RequestBody Map<String, String> params){
+		System.out.println(params);
+		List<CrewVO> res = crewService.selectListVO(new EntityWrapper<CrewEntity>().like("crew_name", params.get("keyword")));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item", res);
+		return R.ok().put("data", map);
 	}
 
 	@RequestMapping("/update")

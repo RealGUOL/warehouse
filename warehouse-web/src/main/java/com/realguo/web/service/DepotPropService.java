@@ -2,11 +2,9 @@ package com.realguo.web.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.realguo.web.entity.DepotPropEntity;
-import com.realguo.web.entity.SysUserRoleEntity;
-import com.realguo.web.vo.DepotPropVO;
+import com.realguo.web.view.DepotPropView;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -14,10 +12,10 @@ import java.util.Map;
  */
 public interface DepotPropService extends IService<DepotPropEntity> {
 
-    void saveOrUpdate(Long propId, List<DepotPropVO> depotProp);
+    void saveOrUpdate(Long propId, List<DepotPropView> depotProp);
 
     /**
      * 根据道具ID，获取道具在各仓库的信息
      */
-    List<DepotPropVO> getDepotPropVO(Long propId);
+    List<DepotPropView> getDepotPropVO(Long propId);
 }

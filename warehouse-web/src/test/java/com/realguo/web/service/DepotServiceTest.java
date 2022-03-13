@@ -1,16 +1,9 @@
 package com.realguo.web.service;
 
 import com.realguo.web.entity.DepotEntity;
-import com.realguo.web.entity.PropEntity;
-import com.realguo.web.vo.DepotPropVO;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootTest
 public class DepotServiceTest {

@@ -3,4 +3,8 @@
 
 <mapper namespace="com.realguo.web.dao.CrewDao">
 
+    <select id="selectListVO" resultType="com.realguo.web.vo.CrewVO" >
+        SELECT crew_id, crew_name FROM crew ${ew.customSqlSegment}
+    </select>
+
 </mapper>
