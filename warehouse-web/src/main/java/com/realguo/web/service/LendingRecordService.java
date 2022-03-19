@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.web.entity.LendingRecordEntity;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -18,4 +19,9 @@ public interface LendingRecordService extends IService<LendingRecordEntity> {
      * 保存出借记录
      */
     void save(LendingRecordEntity lendingRecord);
+
+    /**
+     * 更新出借记录
+     */
+    void update(LendingRecordEntity lendingRecord);
 }

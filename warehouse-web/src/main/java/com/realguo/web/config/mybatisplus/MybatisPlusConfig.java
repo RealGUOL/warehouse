@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.baomidou.mybatisplus.toolkit.GlobalConfigUtils;
 import com.realguo.web.config.mybatisplus.MyMetaObjectHandler;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,6 +29,7 @@ import javax.sql.DataSource;
  * @since 3.1.0 2018-02-05
  */
 @Configuration
+@Slf4j
 public class MybatisPlusConfig {
 
     @Autowired
@@ -55,6 +57,7 @@ public class MybatisPlusConfig {
         }
         MybatisConfiguration mc = new MybatisConfiguration();
         mc.setDefaultScriptingLanguage(MybatisXMLLanguageDriver.class);
+        mc.setMapUnderscoreToCamelCase(true);
         mybatisSqlSessionFactoryBean.setConfiguration(mc);
 
         if (StringUtils.hasLength(this.properties.getTypeAliasesPackage())) {

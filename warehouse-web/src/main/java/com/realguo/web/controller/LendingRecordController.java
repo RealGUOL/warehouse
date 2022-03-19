@@ -35,14 +35,7 @@ public class LendingRecordController extends AbstractController {
     @RequestMapping("/update")
     public R update(@RequestBody LendingRecordEntity lendingRecord) {
         ValidatorUtils.validateEntity(lendingRecord);
-        lendingRecordService.updateById(lendingRecord);
-        return R.ok();
-    }
-
-    @RequestMapping("/delete")
-    public R delete(@RequestBody LendingRecordEntity lendingRecord) {
-        ValidatorUtils.validateEntity(lendingRecord);
-        lendingRecordService.deleteById(lendingRecord.getDepotId());
+        lendingRecordService.update(lendingRecord);
         return R.ok();
     }
 

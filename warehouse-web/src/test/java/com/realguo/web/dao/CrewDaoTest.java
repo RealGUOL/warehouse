@@ -91,4 +91,14 @@ public class CrewDaoTest {
                 .like("crew_name", "花儿"));
         System.out.println(maps);
     }
+
+    @Test
+    public void testTSQL11() {
+        /*
+         * 实体带查询使用方法  输出看结果
+         */
+        EntityWrapper<CrewEntity> ew = new EntityWrapper<CrewEntity>();
+        ew.where("user_name={0}", "'zhangsan'").where("password = {0}", "123456");
+        System.out.println(ew.getSqlSegment());
+    }
 }

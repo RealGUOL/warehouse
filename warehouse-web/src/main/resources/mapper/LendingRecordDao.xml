@@ -3,4 +3,15 @@
 
 <mapper namespace="com.realguo.web.dao.LendingRecordDao">
 
+    <select id="queryPage" resultType="com.realguo.web.entity.LendingRecordEntity">
+        select a.*, crew.crew_name, prop.prop_name, depot.depot_name
+        from lending_record a
+                 join crew on (a.crew_id = crew.crew_id)
+                 join prop on (a.prop_id = prop.prop_id)
+                 join depot on (a.depot_id = depot.depot_id)
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
 </mapper>

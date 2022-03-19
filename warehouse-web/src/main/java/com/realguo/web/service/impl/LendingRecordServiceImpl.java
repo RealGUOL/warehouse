@@ -16,6 +16,7 @@ import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -41,18 +42,22 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<LendingRecordEntity> page = this.selectPage(
-                new Query<LendingRecordEntity>(params).getPage(),
-                new EntityWrapper<LendingRecordEntity>()
-        );
-
-        for (int i = 0; i < page.getRecords().size(); i++) {
-            LendingRecordEntity lendingRecord = page.getRecords().get(i);
-            page.getRecords().get(i).setCrewName(crewService.selectById(lendingRecord.getCrewId()).getCrewName());
-            page.getRecords().get(i).setPropName(propService.selectById(lendingRecord.getPropId()).getPropName());
-            page.getRecords().get(i).setDepotName(depotService.selectById(lendingRecord.getDepotId()).getDepotName());
+        Page<LendingRecordEntity> page = new Query<LendingRecordEntity>(params).getPage();
+        EntityWrapper<LendingRecordEntity> wrapper = new EntityWrapper<>();
+        String crewName = (String) params.get("crewName");
+        String propName = (String) params.get("propName");
+        String depotName = (String) params.get("depotName");
+        if (StringUtils.hasText(crewName)) {
+            wrapper.like("crew_name", crewName);
         }
-
+        if (StringUtils.hasText(propName)) {
+            wrapper.like("prop_name", propName);
+        }
+        if (StringUtils.hasText(depotName)) {
+            wrapper.like("depot_name", depotName);
+        }
+        List<LendingRecordEntity> records = this.baseMapper.queryPage(page, wrapper);
+        page.setRecords(records);
         return new PageUtils(page);
     }
 
@@ -70,15 +75,59 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
         }
         // 检查库存
         DepotPropEntity depotProp = depotPropEntities.get(0);
-        if (depotProp.getStock() < lendingRecord.getBorrowNum()) {
+        if (depotProp.getStock() < lendingRecord.getBorrowNum() - lendingRecord.getReturnNum()) {
             throw new RRException("库存不足");
         }
         // 扣库存
-        depotProp.setStock(depotProp.getStock() - lendingRecord.getBorrowNum());
+        depotProp.setStock(depotProp.getStock() - lendingRecord.getBorrowNum() + lendingRecord.getReturnNum());
         depotPropService.updateById(depotProp);
 
         lendingRecord.setCrewName(crewService.selectById(lendingRecord.getCrewId()).getCrewName());
         lendingRecord.setPropName(propService.selectById(lendingRecord.getPropId()).getPropName());
         lendingRecord.setDepotName(depotService.selectById(lendingRecord.getDepotId()).getDepotName());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(LendingRecordEntity lendingRecord) {
+        /**
+         * 归还旧的出借记录
+         */
+        // 1. 查找旧的出借记录
+        LendingRecordEntity lendingRecordEntity = this.selectById(lendingRecord.getLendingRecordId());
+        // 2. 根据就的操作记录，查询旧的库存
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("depot_id", lendingRecordEntity.getDepotId());
+        map.put("prop_id", lendingRecordEntity.getPropId());
+        List<DepotPropEntity> depotPropEntities = depotPropService.selectByMap(map);
+        if (CollectionUtils.isEmpty(depotPropEntities)) {
+            throw new RRException("更新失败");
+        }
+        // 3. 归还
+        DepotPropEntity depotProp = depotPropEntities.get(0);
+        depotProp.setStock(depotProp.getStock() + lendingRecordEntity.getBorrowNum() - lendingRecordEntity.getReturnNum());
+        depotPropService.updateById(depotProp);
+
+
+        /**
+         * 重新借新的出借记录
+         */
+        this.updateById(lendingRecord);
+        // 查询库存
+        map.put("depot_id", lendingRecord.getDepotId());
+        map.put("prop_id", lendingRecord.getPropId());
+        depotPropEntities = depotPropService.selectByMap(map);
+        if (CollectionUtils.isEmpty(depotPropEntities)) {
+            throw new RRException("未找到相关库存");
+        }
+        // 检查库存
+        depotProp = depotPropEntities.get(0);
+        if (depotProp.getStock() < lendingRecord.getBorrowNum() - lendingRecord.getReturnNum()) {
+            throw new RRException("库存不足");
+        }
+        // 扣库存
+        depotProp.setStock(depotProp.getStock() - lendingRecord.getBorrowNum() + lendingRecord.getReturnNum());
+        depotPropService.updateById(depotProp);
+
     }
 }
