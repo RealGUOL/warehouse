@@ -1,11 +1,11 @@
 
 package com.realguo.web.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.realguo.common.exception.RRException;
+import com.realguo.common.utils.MyEntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.LendingRecordDao;
@@ -16,7 +16,6 @@ import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -43,20 +42,7 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<LendingRecordEntity> page = new Query<LendingRecordEntity>(params).getPage();
-        EntityWrapper<LendingRecordEntity> wrapper = new EntityWrapper<>();
-        String crewName = (String) params.get("crewName");
-        String propName = (String) params.get("propName");
-        String depotName = (String) params.get("depotName");
-        if (StringUtils.hasText(crewName)) {
-            wrapper.like("crew_name", crewName);
-        }
-        if (StringUtils.hasText(propName)) {
-            wrapper.like("prop_name", propName);
-        }
-        if (StringUtils.hasText(depotName)) {
-            wrapper.like("depot_name", depotName);
-        }
-        List<LendingRecordEntity> records = this.baseMapper.queryPage(page, wrapper);
+        List<LendingRecordEntity> records = this.baseMapper.queryPage(page, new MyEntityWrapper<>(params));
         page.setRecords(records);
         return new PageUtils(page);
     }

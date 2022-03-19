@@ -1,20 +1,15 @@
 package com.realguo.web.service;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.Maps;
+import com.realguo.common.utils.MyEntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.web.dao.LendingRecordDao;
 import com.realguo.web.entity.LendingRecordEntity;
-import com.realguo.web.entity.PropEntity;
-import com.realguo.web.view.DepotPropView;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +43,9 @@ public class LendingRecordServiceTest {
     public void TestSearch5() {
         Page page = new Page(1, 3);
         System.out.println(page);
-        List<LendingRecordEntity> lendingRecordEntities = lendingRecordDao.queryPage(page, new EntityWrapper<LendingRecordEntity>().where("prop_name = {0}", "小刀1"));
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("prop_name", "小刀1");
+        List<LendingRecordEntity> lendingRecordEntities = lendingRecordDao.queryPage(page, new MyEntityWrapper<LendingRecordEntity>(map));
         for (LendingRecordEntity lendingRecordEntity : lendingRecordEntities) {
             System.out.println(lendingRecordEntity);
         }

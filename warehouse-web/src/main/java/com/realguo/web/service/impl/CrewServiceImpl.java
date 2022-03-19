@@ -1,9 +1,9 @@
 package com.realguo.web.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.realguo.common.utils.MyEntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.CrewDao;
@@ -21,11 +21,7 @@ public class CrewServiceImpl extends ServiceImpl<CrewDao, CrewEntity> implements
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<CrewEntity> page = this.selectPage(
-                new Query<CrewEntity>(params).getPage(),
-                new EntityWrapper<CrewEntity>()
-        );
-
+        Page<CrewEntity> page = this.selectPage(new Query<CrewEntity>(params).getPage(), new MyEntityWrapper<>(params));
         return new PageUtils(page);
     }
 

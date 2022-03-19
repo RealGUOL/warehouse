@@ -3,7 +3,6 @@ package com.realguo.web.dao;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.realguo.web.entity.DepotEntity;
 import com.realguo.web.entity.LendingRecordEntity;
 import org.apache.ibatis.annotations.Param;
 
