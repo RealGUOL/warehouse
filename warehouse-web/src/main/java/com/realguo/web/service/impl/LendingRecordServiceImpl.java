@@ -76,5 +76,9 @@ public class LendingRecordServiceImpl extends ServiceImpl<LendingRecordDao, Lend
         // 扣库存
         depotProp.setStock(depotProp.getStock() - lendingRecord.getBorrowNum());
         depotPropService.updateById(depotProp);
+
+        lendingRecord.setCrewName(crewService.selectById(lendingRecord.getCrewId()).getCrewName());
+        lendingRecord.setPropName(propService.selectById(lendingRecord.getPropId()).getPropName());
+        lendingRecord.setDepotName(depotService.selectById(lendingRecord.getDepotId()).getDepotName());
     }
 }

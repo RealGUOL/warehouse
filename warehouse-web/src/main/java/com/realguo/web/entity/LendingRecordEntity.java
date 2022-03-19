@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -54,6 +54,7 @@ public class LendingRecordEntity<T> implements Serializable {
      * 剧组ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
+    @NotNull(message = "剧组不能为空")
     @ApiModelProperty(value = "剧组ID")
     private Long crewId;
 
@@ -61,6 +62,7 @@ public class LendingRecordEntity<T> implements Serializable {
      * 道具ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
+    @NotNull(message = "道具不能为空")
     @ApiModelProperty(value = "道具ID")
     private Long propId;
 
@@ -68,34 +70,34 @@ public class LendingRecordEntity<T> implements Serializable {
      * 仓库ID
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    @ApiModelProperty(value = "仓库Id", hidden = true)
+    @NotNull(message = "仓库不能为空")
+    @ApiModelProperty(value = "仓库ID", hidden = true)
     private Long depotId;
 
     /**
      * 出借数量
      */
-    @NotBlank(message = "出借数量不能为空")
+    @NotNull(message = "出借数量不能为空")
     @ApiModelProperty(value = "出借数量")
     private Integer borrowNum;
 
     /**
      * 每日租金
      */
-    @NotBlank(message = "每日租金不能为空")
+    @NotNull(message = "每日租金不能为空")
     @ApiModelProperty(value = "每日租金")
     private BigDecimal dailyRent;
 
     /**
      * 租期
      */
-    @NotBlank(message = "租期不能为空")
+    @NotNull(message = "租期不能为空")
     @ApiModelProperty(value = "租期")
     private Integer rentalDays;
 
     /**
-     * 出借数量
+     * 归还数量
      */
-    @NotBlank(message = "归还数量不能为空")
     @ApiModelProperty(value = "归还数量")
     private Integer returnNum;
 
@@ -116,6 +118,7 @@ public class LendingRecordEntity<T> implements Serializable {
     /**
      * 操作人
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = "操作人")
     private String operator;
 

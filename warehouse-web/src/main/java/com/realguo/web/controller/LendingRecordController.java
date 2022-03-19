@@ -49,7 +49,8 @@ public class LendingRecordController extends AbstractController {
     @RequestMapping("/create")
     public R create(@RequestBody LendingRecordEntity lendingRecord) {
         ValidatorUtils.validateEntity(lendingRecord);
-        lendingRecordService.insert(lendingRecord);
+        lendingRecordService.save(lendingRecord);
+        // 检查道具所在仓库是否有库存
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("item", lendingRecord);
         return R.ok().put("data", map);

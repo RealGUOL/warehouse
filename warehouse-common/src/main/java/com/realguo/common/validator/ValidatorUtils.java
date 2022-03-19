@@ -26,12 +26,6 @@ import java.util.Set;
 
 /**
  * hibernate-validator校验工具类
- *
- * 参考文档：
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-03-15 10:50
  */
 public class ValidatorUtils {
     private static Validator validator;

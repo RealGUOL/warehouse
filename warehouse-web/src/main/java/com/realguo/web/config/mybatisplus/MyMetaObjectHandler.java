@@ -17,7 +17,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         setFieldValByName("createTime", new Date(), metaObject);
         try {
             if (ShiroUtils.getUserEntity() != null) {
-                setFieldValByName("createBy", ShiroUtils.getUserEntity().getUsername(), metaObject);
+                setFieldValByName("operator", ShiroUtils.getUserEntity().getUsername(), metaObject);
             }
         } catch (UnavailableSecurityManagerException e) {
             System.out.println("定时任务不能由shiro管理，所以执行shiro方法会报错");
@@ -30,7 +30,7 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
         setFieldValByName("updateTime", new Date(), metaObject);
         try {
             if (ShiroUtils.getUserEntity() != null) {
-                setFieldValByName("updateBy", ShiroUtils.getUserEntity().getUsername(), metaObject);
+                setFieldValByName("operator", ShiroUtils.getUserEntity().getUsername(), metaObject);
             }
         } catch (UnavailableSecurityManagerException e) {
             System.out.println("定时任务不能由shiro管理,所以执行shiro方法会报错");
