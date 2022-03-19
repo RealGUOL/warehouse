@@ -21,8 +21,9 @@ public class MyEntityWrapper<T> extends EntityWrapper<T> {
         Map<String, Object> newMap = Maps.newHashMap(map);
         newMap.remove("page");
         newMap.remove("limit");
+        newMap.remove("sort");
         newMap.forEach((key, val) -> {
-            if (!key.equals("sort")) this.like(key, (String) val);
+            this.like(key, (String) val);
         });
     }
 }

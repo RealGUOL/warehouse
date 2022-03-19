@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.realguo.web.entity.CrewEntity;
-import com.realguo.web.vo.CrewVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -98,7 +96,7 @@ public class CrewDaoTest {
          * 实体带查询使用方法  输出看结果
          */
         EntityWrapper<CrewEntity> ew = new EntityWrapper<CrewEntity>();
-        ew.where("user_name={0}", "'zhangsan'").where("password = {0}", "123456");
+        ew.orderBy("12").where("user_name={0}", "'zhangsan'").where("password = {0}", "123456");
         System.out.println(ew.getSqlSegment());
     }
 }
