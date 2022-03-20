@@ -1,8 +1,11 @@
 package com.realguo.web.dao;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.collect.Maps;
 import com.realguo.web.entity.DepotPropEntity;
 import com.realguo.web.entity.PropEntity;
+import com.realguo.web.view.DepotPropView;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +44,26 @@ public class PropDaoTest {
         map.put("prop_id", list);
         List<PropEntity> propEntities = propDao.selectByMap(map);
         System.out.println(propEntities);
+    }
+
+    @Test
+    public void TestQueryDepotDetail() {
+        List<DepotPropView> depotPropViews = propDao.queryDepotDetail(1505183736305160193L);
+        for (DepotPropView depotPropView : depotPropViews) {
+            System.out.println("=========================================");
+            System.out.println(depotPropView.getDepotName());
+            System.out.println(depotPropView.getDepotId());
+            System.out.println(depotPropView.getStock());
+            System.out.println(depotPropView.getPropId());
+            System.out.println(depotPropView);
+        }
+    }
+
+    @Test
+    public void TestQueryPage() {
+        List<PropEntity> props = propDao.queryPage(new Page(1, 3), new EntityWrapper<PropEntity>().like("prop_name", "小刀1"));
+        for (PropEntity prop : props) {
+            System.out.println(prop);
+        }
     }
 }

@@ -3,4 +3,32 @@
 
 <mapper namespace="com.realguo.web.dao.PropDao">
 
+    <resultMap type="com.realguo.web.entity.PropEntity" id="propMap">
+        <result property="propId" column="prop_id"/>
+        <result property="propCode" column="prop_code"/>
+        <result property="propName" column="prop_name"/>
+        <result property="price" column="price"/>
+        <result property="img" column="img"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="depotProp" ofType="com.realguo.web.view.DepotPropView"
+                    select="queryDepotDetail" column="prop_id">
+        </collection>
+    </resultMap>
+
+    <select id="queryPage" resultMap="propMap">
+        select *
+        from prop
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+    <select id="queryDepotDetail" resultType="com.realguo.web.view.DepotPropView">
+        select a.*, depot_name
+        from depot_prop a join depot on(a.depot_id = depot.depot_id)
+        where prop_id = #{prop_id}
+    </select>
+
 </mapper>

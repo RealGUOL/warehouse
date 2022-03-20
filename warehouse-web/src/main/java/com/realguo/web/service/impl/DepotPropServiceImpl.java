@@ -44,17 +44,4 @@ public class DepotPropServiceImpl extends ServiceImpl<DepotPropDao, DepotPropEnt
         }
         this.insertBatch(list);
     }
-
-    @Override
-    public List<DepotPropView> getDepotPropVO(Long propId) {
-        Map<String, Object> map = Maps.newHashMap();
-        map.put("prop_id", propId);
-        List<DepotPropEntity> records = baseMapper.selectByMap(map);
-        List<DepotPropView> res = records.stream().map(DepotPropView::new).collect(Collectors.toList());
-        for (DepotPropView re : res) {
-            DepotEntity depotEntity = depotService.selectById(re.getDepotId());
-            re.setDepotName(depotEntity.getDepotName());
-        }
-        return res;
-    }
 }

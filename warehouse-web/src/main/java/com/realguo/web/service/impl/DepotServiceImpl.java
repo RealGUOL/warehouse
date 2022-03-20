@@ -1,9 +1,9 @@
 package com.realguo.web.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.realguo.common.utils.MyEntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.DepotDao;
@@ -21,10 +21,7 @@ public class DepotServiceImpl extends ServiceImpl<DepotDao, DepotEntity> impleme
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<DepotEntity> page = this.selectPage(
-                new Query<DepotEntity>(params).getPage(),
-                new EntityWrapper<DepotEntity>()
-        );
+        Page<DepotEntity> page = this.selectPage(new Query<DepotEntity>(params).getPage(), new MyEntityWrapper<>(params));
         return new PageUtils(page);
     }
 

@@ -1,9 +1,9 @@
 package com.realguo.web.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.realguo.common.utils.MyEntityWrapper;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.Query;
 import com.realguo.web.dao.PropDao;
@@ -27,14 +27,9 @@ public class PropServiceImpl extends ServiceImpl<PropDao, PropEntity> implements
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<PropEntity> page = this.selectPage(
-                new Query<PropEntity>(params).getPage(),
-                new EntityWrapper<PropEntity>()
-        );
-
-        for (int i = 0; i < page.getRecords().size(); i++) {
-            page.getRecords().get(i).setDepotProp(depotPropService.getDepotPropVO(page.getRecords().get(i).getPropId()));
-        }
+        Page<PropEntity> page = new Query<PropEntity>(params).getPage();
+        List<PropEntity> records = this.baseMapper.queryPage(page, new MyEntityWrapper<>(params));
+        page.setRecords(records);
         return new PageUtils(page);
     }
 

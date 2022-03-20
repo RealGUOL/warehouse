@@ -13,9 +13,4 @@ import java.util.List;
 public interface DepotPropService extends IService<DepotPropEntity> {
 
     void saveOrUpdate(Long propId, List<DepotPropView> depotProp);
-
-    /**
-     * 根据道具ID，获取道具在各仓库的信息
-     */
-    List<DepotPropView> getDepotPropVO(Long propId);
 }

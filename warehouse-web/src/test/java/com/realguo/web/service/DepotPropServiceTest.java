@@ -30,7 +30,7 @@ public class DepotPropServiceTest {
             prop.setPropCode("AAAAAA" + i);
             prop.setPropName("小刀" + i);
             prop.setPrice(new BigDecimal("1.1"));
-            prop.setImg("http://wwww.baidu.com/" + i);
+            prop.setImg("https://gitee.com/RealGUO/picgo/raw/master/image-20220320155056880.png");
             prop.setRemark("测试" + i);
             prop.setCreateTime(new Date());
             List<DepotPropView> list = Lists.newArrayList();
@@ -44,6 +44,7 @@ public class DepotPropServiceTest {
             prop.setDepotProp(list);
             propService.save(prop);
             // 出借
+            if (i>=10) continue;
             for (int j = 0; j < depotIds.size(); j++) {
                 LendingRecordEntity lendingRecord = new LendingRecordEntity();
                 lendingRecord.setPropId(prop.getPropId());
@@ -52,6 +53,7 @@ public class DepotPropServiceTest {
                 lendingRecord.setDepotId(depotIds.get(j));
                 lendingRecord.setDailyRent(new BigDecimal((j+1)*10));
                 lendingRecord.setRentalDays(j+1);
+                lendingRecord.setReturnNum(0);
                 lendingRecord.setRemark("出借记录"+j);
                 lendingRecord.setOperator("admin");
                 lendingRecordService.save(lendingRecord);
