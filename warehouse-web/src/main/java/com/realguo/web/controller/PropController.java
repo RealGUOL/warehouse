@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Maps;
 import com.realguo.common.utils.PageUtils;
 import com.realguo.common.utils.R;
+import com.realguo.common.validator.ValidatorUtils;
 import com.realguo.web.entity.PropEntity;
 import com.realguo.web.service.PropService;
 import com.realguo.web.vo.PropVO;
@@ -33,6 +34,13 @@ public class PropController extends AbstractController {
 		PageUtils page = propService.queryPage(params);
 
 		return R.ok().put("data", page);
+	}
+
+	@RequestMapping("/update")
+	public R update(@RequestBody PropEntity prop) {
+		ValidatorUtils.validateEntity(prop);
+		propService.update(prop);
+		return R.ok();
 	}
 
 	@RequestMapping("/search")

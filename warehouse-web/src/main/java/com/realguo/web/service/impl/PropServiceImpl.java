@@ -43,6 +43,14 @@ public class PropServiceImpl extends ServiceImpl<PropDao, PropEntity> implements
     }
 
     @Override
+    public void update(PropEntity propEntity) {
+        this.updateById(propEntity);
+
+        //保存道具和所在仓库库存
+        depotPropService.saveOrUpdate(propEntity.getPropId(), propEntity.getDepotProp());
+    }
+
+    @Override
     public List<PropVO> selectListVO(Wrapper<PropEntity> wrapper) {
         List<Map<String, Object>> map = baseMapper.selectMaps(wrapper);
         List<PropVO> res = map.stream().map(e -> new PropVO((long) e.get("prop_id"), (String) e.get("prop_name"))).collect(Collectors.toList());

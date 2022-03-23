@@ -17,6 +17,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -68,7 +69,7 @@ public class PropEntity<T> implements Serializable {
     /**
      * 价格
      */
-    @NotBlank(message = "价格不能为空")
+    @NotNull(message = "价格不能为空")
     @ApiModelProperty(value = "价格")
     private BigDecimal price;
 
@@ -105,6 +106,7 @@ public class PropEntity<T> implements Serializable {
     /**
      * 道具所在仓库信息
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
+    @NotNull(message = "道具所在仓库信息不能为空")
     private List<DepotPropView> depotProp;
 }

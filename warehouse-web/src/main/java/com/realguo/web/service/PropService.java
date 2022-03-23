@@ -22,5 +22,10 @@ public interface PropService extends IService<PropEntity> {
      */
     void save(PropEntity propEntity);
 
+    /**
+     * 更新道具
+     */
+    void update(PropEntity propEntity);
+
     List<PropVO> selectListVO(Wrapper<PropEntity> wrapper);
 }
