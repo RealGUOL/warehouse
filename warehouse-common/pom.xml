@@ -43,6 +43,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip><!--不需要main类打包-->
+                </configuration>
             </plugin>
         </plugins>
     </build>
