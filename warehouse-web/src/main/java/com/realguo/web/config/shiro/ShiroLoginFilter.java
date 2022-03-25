@@ -1,9 +1,9 @@
 package com.realguo.web.config.shiro;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
 import org.apache.shiro.web.filter.authc.UserFilter;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
